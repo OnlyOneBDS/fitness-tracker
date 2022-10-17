@@ -1,1 +1,32 @@
-<p>past-trainings works!</p>
+<div fxLayoutAlign="center center">
+  <mat-form-field appearance="standard" fxFlex="40%">
+    <mat-label>Filter</mat-label>
+    <input type="text" placeholder="Search columns" #input matInput (keyup)="applyFilter($event.target.value)" />
+  </mat-form-field>
+</div>
+<table mat-table matSort [dataSource]="dataSource" style="width: 100%;">
+  <ng-container matColumnDef="date">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Date</th>
+    <td mat-cell *matCellDef="let exercise">{{exercise.date | date}}</td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let exercise">{{exercise?.name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="calories">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Calories</th>
+    <td mat-cell *matCellDef="let exercise">{{exercise?.calories | number}}</td>
+  </ng-container>
+  <ng-container matColumnDef="duration">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>Duration</th>
+    <td mat-cell *matCellDef="let exercise">{{exercise?.duration | number}}</td>
+  </ng-container>
+  <ng-container matColumnDef="state">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef>State</th>
+    <td mat-cell *matCellDef="let exercise">{{exercise?.state}}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>
